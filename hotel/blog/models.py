@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce import HTMLField
+
 
 # Create your models here.
 class Categorie(models.Model):
-
+    
     titre= models.CharField(max_length=250)
     date_add= models.DateTimeField(auto_now=False, auto_now_add=True)
     date_upd= models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -24,11 +26,12 @@ class Article(models.Model):
     nom= models.CharField(max_length=250)
     image= models.ImageField(upload_to='categorie')
     date= models.DateField(auto_now=False, auto_now_add=False)
-    description= models.TextField()
+    description_cat= models.TextField()
+    content = HTMLField('Content')
     date_add= models.DateTimeField(auto_now=False, auto_now_add=True)
     date_upd= models.DateTimeField(auto_now=True, auto_now_add=False)
-    Categorie_id= models.ForeignKey("Categorie", on_delete=models.CASCADE, related_name= "Categorie_Article")
-    User_id= models.ForeignKey( User, on_delete=models.CASCADE, related_name= "User_Article")
+    Categorie_id= models.ForeignKey("Categorie", on_delete=models.CASCADE, related_name= "CategorieArticle")
+    User_id= models.ForeignKey( User, on_delete=models.CASCADE, related_name= "UserArticle")
     satut= models.BooleanField()
 
 
@@ -45,8 +48,8 @@ class Commentaire(models.Model):
     image= models.ImageField(upload_to='categorie')
     message= models.TextField()
     date= models.DateTimeField(auto_now=True, auto_now_add=False)
-    User_id= User_id= models.ForeignKey( User, on_delete=models.CASCADE, related_name= "User_Commentaire")
-    Article_id= models.ForeignKey("Article", on_delete=models.CASCADE, related_name= "Article_Commentaire")
+    User_id= User_id= models.ForeignKey( User, on_delete=models.CASCADE, related_name= "UserCommentaire")
+    Article_id= models.ForeignKey("Article", on_delete=models.CASCADE, related_name= "ArticleCommentaire")
     date_add= models.DateTimeField(auto_now=False, auto_now_add=True)
     date_upd= models.DateTimeField(auto_now=True, auto_now_add=False)
     satut= models.BooleanField()

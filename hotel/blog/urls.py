@@ -19,5 +19,6 @@ from . import views
 
 urlpatterns = [
     path('blog', views.blog, name= "blog"),
-    path('single', views.single, name= "single"),
+    path('<int:pk>/single', views.single, name= "single"),
+    #path('single', views.single, name= "single"),
 ]
